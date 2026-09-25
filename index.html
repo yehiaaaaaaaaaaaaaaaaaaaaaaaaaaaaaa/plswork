@@ -2,48 +2,23 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>NOUF AR</title>
+    <title>AR Model Card</title>
 
-    <script type="module"
-        src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js">
-    </script>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
     <style>
 
         body {
             margin: 0;
             overflow: hidden;
-            background: white;
-        }
-
-        model-viewer {
-            width: 100vw;
-            height: 100vh;
-        }
-
-        .ar-button {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-
-            padding: 15px 25px;
-
-            font-size: 18px;
-            font-family: Arial, sans-serif;
-
-            border: none;
-            border-radius: 10px;
-
-            background: black;
-            color: white;
-
-            cursor: pointer;
         }
 
     </style>
@@ -52,21 +27,43 @@
 
 <body>
 
-    <model-viewer
-        src="NOUF31.glb"
-        alt="NOUF 3D Model"
-        camera-controls
-        ar
-        ar-modes="webxr scene-viewer quick-look"
-        shadow-intensity="1">
+    <a-scene
+        mindar-image="imageTargetSrc: targets1.mind;"
+        color-space="sRGB"
+        renderer="colorManagement: true, physicallyCorrectLights"
+        vr-mode-ui="enabled: false"
+        device-orientation-permission-ui="enabled: false">
 
-        <button
-            slot="ar-button"
-            class="ar-button">
-            View in AR
-        </button>
+        <a-assets>
 
-    </model-viewer>
+            <a-asset-item
+                id="carModel"
+                src="NOUF31.glb">
+            </a-asset-item>
+
+        </a-assets>
+
+
+        <a-camera
+            position="0 0 0"
+            look-controls="enabled: false">
+        </a-camera>
+
+
+        <a-entity
+            mindar-image-target="targetIndex: 0">
+
+            <a-gltf-model
+                src="#carModel"
+                position="0 -1.5 0"
+                rotation="0 0 0"
+                scale="15 15 15">
+            </a-gltf-model>
+
+        </a-entity>
+
+
+    </a-scene>
 
 </body>
 
